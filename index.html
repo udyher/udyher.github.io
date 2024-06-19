@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Sentence</title>
+</head>
+<body>
+    <h1 id="randomSentence"></h1>
+    <button onclick="displayRandomSentence()">Show Random Sentence</button>
+
+    <script>
+        const sentences = [
+			"#1	כְּשֶׁאַתָּה צָעִיר, גַּם שְׁאֵלָה גְּדוֹלָה הִיא בּוּשָׁה קְטַנָּה. כְּשֶׁאַתָּה וָתִיק, אֲפִלּוּ שְׁאֵלָה קְטַנָּה הִיא בּוּשָׁה גְּדוֹלָה.	(מהנדס חכם)",
+			"#2	אִם הַדִּיבּוּג הוּא הַתַּהֲלִיךְ בּוֹ מוֹצִיאִים בָּאגִים מֵהַתּוֹכְנָה, אָז הַתִּכְנוּת חַיָּב לִהְיוֹת הַתַּהֲלִיךְ בּוֹ מַכְנִיסִים אוֹתָם פְּנִימָה. (א. דייקסטרה)",
+			"#3	סָיְיבֶּר-פֶּרְפֵקְצְיוֹנָלִיזְם: סוּג שֶׁל הַפְרָעָה טוֹרְדָנִית-כְּפִיָּתִית, הַגּוֹרֶמֶת לְאוֹבְּסֶסְיָה לְקוֹד מוּשְׁלָם. הַלּוֹקִים בְּהַפְרָעָה זוֹ אֵינָם מְסֻגָּלִים לְסַיֵּם אוֹ לְדָלְוֶור קוֹד, כֵּיוָן שֶׁלְּטַעְמָם הוּא אַף פַּעַם אֵינוֹ מַסְפִּיק מוּשְׁלָם.	(מושגי יסוד)"
+        ];
+
+        function displayRandomSentence() {
+            const randomIndex = Math.floor(Math.random() * sentences.length);
+            const randomSentence = sentences[randomIndex];
+            document.getElementById("randomSentence").textContent = randomSentence;
+        }
+    </script>
+</body>
+</html>
