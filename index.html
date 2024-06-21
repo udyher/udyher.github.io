@@ -2,20 +2,31 @@
 <html dir="rtl">
 <head>
     <title>פסוק רנדומלי</title>
+    <style>
+        body {
+            background-image: url('psuku-banner.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+        }
+    </style>
 </head>
 <body>
-    <button onclick="displayRandomSentence()">פסוק רנדומלי</button>
     <h1 id="randomSentence"></h1>
+    <button onclick="displayRandomSentence()">פסוק רנדומלי</button>
 
     <script>
         async function loadSentences() {
             try {
                 const response = await fetch("sentences.txt");
                 const text = await response.text();
-                return text.split("\n"); // Split sentences by newline
+                return text.split("\n");
             } catch (error) {
                 console.error("Error loading sentences:", error);
-                return []; // Return an empty array if loading fails
+                return [];
             }
         }
 
