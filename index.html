@@ -17,6 +17,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1 id="randomSentence"></h1>
@@ -25,15 +26,30 @@
 
     <script>
         async function loadSentences() {
-            // ... (existing code remains unchanged)
+            try {
+                const response = await fetch("sentences.txt");
+                const text = await response.text();
+                return text.split("\n");
+            } catch (error) {
+                console.error("Error loading sentences:", error);
+                return [];
+            }
         }
 
         async function displayRandomSentence() {
-            // ... (existing code remains unchanged)
+            const sentences = await loadSentences();
+            if (sentences.length > 0) {
+                const randomIndex = Math.floor(Math.random() * sentences.length);
+                const randomSentence = sentences[randomIndex];
+                document.getElementById("randomSentence").textContent = randomSentence;
+            } else {
+                document.getElementById("randomSentence").textContent = "No sentences found.";
+            }
         }
 
         // Initial load
         displayRandomSentence();
     </script>
 </body>
+
 </html>
