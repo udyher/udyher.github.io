@@ -1,25 +1,37 @@
 <!DOCTYPE html>
-<html dir = "rtl">
+<html dir="rtl">
 <head>
     <title>פסוק רנדומלי</title>
 </head>
 <body>
     <button onclick="displayRandomSentence()">פסוק רנדומלי</button>
     <h1 id="randomSentence"></h1>
-    
 
     <script>
-        const sentences = [            
-            "111",
-            "222",
-            "333"
-        ];
-
-        function displayRandomSentence() {
-            const randomIndex = Math.floor(Math.random() * sentences.length);
-            const randomSentence = sentences[randomIndex];
-            document.getElementById("randomSentence").textContent = randomSentence;
+        async function loadSentences() {
+            try {
+                const response = await fetch("sentences.txt");
+                const text = await response.text();
+                return text.split("\n"); // Split sentences by newline
+            } catch (error) {
+                console.error("Error loading sentences:", error);
+                return []; // Return an empty array if loading fails
+            }
         }
+
+        async function displayRandomSentence() {
+            const sentences = await loadSentences();
+            if (sentences.length > 0) {
+                const randomIndex = Math.floor(Math.random() * sentences.length);
+                const randomSentence = sentences[randomIndex];
+                document.getElementById("randomSentence").textContent = randomSentence;
+            } else {
+                document.getElementById("randomSentence").textContent = "No sentences found.";
+            }
+        }
+
+        // Initial load
+        displayRandomSentence();
     </script>
 </body>
 </html>
