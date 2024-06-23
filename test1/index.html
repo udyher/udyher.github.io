@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Web Page Update</title>
+</head>
+<body>
+    <h1>Check Web Page Update</h1>
+    <button onclick="checkUpdate()">Check Update</button>
+
+    <script>
+        function checkUpdate() {
+            // Replace with the URL of the known web page
+            const url = "[1](https://pinatkafe.com/%d7%aa%d7%a9%d7%91%d7%a6%d7%99-%d7%94%d7%92%d7%99%d7%95%d7%9f/)";
+
+            // Fetch the page and check the last modified timestamp
+            fetch(url)
+                .then(response => response.headers.get("last-modified"))
+                .then(lastModified => {
+                    const currentTime = new Date();
+                    const lastModifiedTime = new Date(lastModified);
+                    const timeDifference = (currentTime - lastModifiedTime) / 1000; // in seconds
+
+                    if (timeDifference <= 60) {
+                        alert("The web page was updated in the last 1 minute.");
+                    } else {
+                        alert("The web page was not updated in the last 1 minute.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching the page:", error);
+                });
+        }
+    </script>
+</body>
+</html>
