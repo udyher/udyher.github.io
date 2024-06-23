@@ -12,7 +12,7 @@
     <script>
         function checkUpdate() {
             // Replace with the URL of the known web page
-            const url = "[1](https://pinatkafe.com/%d7%aa%d7%a9%d7%91%d7%a6%d7%99-%d7%94%d7%92%d7%99%d7%95%d7%9f/)";
+            const url = "[1](https://udyher.github.io/Pasuk/)";
 
             // Fetch the page and check the last modified timestamp
             fetch(url)
@@ -22,10 +22,10 @@
                     const lastModifiedTime = new Date(lastModified);
                     const timeDifference = (currentTime - lastModifiedTime) / 1000; // in seconds
 
-                    if (timeDifference <= 60) {
-                        alert("The web page was updated in the last 1 minute.");
+                    if (timeDifference <= 300) {
+                        alert("The web page was updated in the last 5 minute.");
                     } else {
-                        alert("The web page was not updated in the last 1 minute.");
+                        alert("The web page was not updated in the last 5 minute.");
                     }
                 })
                 .catch(error => {
