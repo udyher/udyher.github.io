@@ -10,18 +10,28 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            position: relative; /* Added for image positioning */
         }
         .centered-button {
             font-size: 30px;
             padding: 12px 24px;
         }
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
     </style>
 </head>
 
 <body>
+    <img src="logo.png" alt="Logo">
     <div class="container">
+        <h1>פסוקו של קוד</h1>
         <h1 id="randomSentence"></h1>
-        <button class="centered-button" onclick="displayRandomSentence()">...עוד פסוק רנדומלי</button>
+        <button class="centered-button" onclick="displayRandomSentence()">עוד פסוק רנדומלי</button>
+		<h1>כל הפסוקים ועוד דברים אפשר למצוא ב <a href="www.pinatkafe.com">פינת הקפה</a></h1>
     </div>
 
     <script>
