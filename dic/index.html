@@ -4,14 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>מציאת מילים לתשבץ</title>
+    <style>
+        #patternLength {
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
 </head>
 <body>
     <h1>מציאת מילים לתשבץ</h1>
-    <input type="text" id="patternInput" placeholder="הכנס תבנית (לדוגמא, א*ב* או א?ב? או א.ב.)">
+    <input type="text" id="patternInput" placeholder="הכנס תבנית (א*ב* או א?ב? או א.ב.)" oninput="updateLength()">
+    <div id="patternLength">אורך התבנית: 0</div>
     <button onclick="matchPattern()">מצא מילים</button>
     <pre id="output"></pre>
 
     <script>
+        function updateLength() {
+            const patternInput = document.getElementById('patternInput');
+            const patternLength = document.getElementById('patternLength');
+            patternLength.textContent = 'אורך התבנית: ' + patternInput.value.length;
+        }
+
         function matchPattern() {
             const patternInput = document.getElementById('patternInput').value;
             const output = document.getElementById('output');
@@ -30,13 +43,17 @@
                     if (match === '?') return '.';
                     if (match === '.') return '.';
                 }) + '$');
-                    lines.forEach(line => {
+                let matchCount = 0;
+                const matchedWords = [];
+                lines.forEach(line => {
                     const originalWord = line.trim();
                     const wordWithoutHyphens = originalWord.replace(/-/g, '');
                     if (regexPattern.test(wordWithoutHyphens)) {
-                        output.textContent += originalWord + '\n';
+                         matchedWords.push(originalWord);
                         }
                     });
+				matchCount = matchedWords.length;
+                output.textContent = 'נמצאו ' + matchCount + ' מילים:\n' + matchedWords.join('\n');
                 })
                 .catch(error => {
                     console.error('Error:', error);
