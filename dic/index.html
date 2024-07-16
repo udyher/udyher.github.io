@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מציאת מילים לתשבץ</title>
+</head>
+<body>
+    <h1>מציאת מילים לתשבץ</h1>
+    <input type="text" id="patternInput" placeholder="הכנס תבנית (לדוגמא, א*ב*)">
+    <button onclick="matchPattern()">מצא מילים</button>
+    <pre id="output"></pre>
+
+    <script>
+        function matchPattern() {
+            const patternInput = document.getElementById('patternInput').value;
+            const output = document.getElementById('output');
+            output.textContent = '';
+
+            // Hardcoded filename
+            const filename = "all_words8.txt";
+
+            // Fetch the file from the server
+            fetch(filename)
+                .then(response => response.text())
+                .then(text => {
+                    const lines = text.split('\n');
+                    const regexPattern = new RegExp('^' + patternInput.replace(/\*/g, '.') + '$');
+
+                    lines.forEach(line => {
+                        const word = line.trim();
+                        if (regexPattern.test(word)) {
+                            output.textContent += word + '\n';
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error reading file.');
+                });
+        }
+    </script>
+
+</body>
+</html>
