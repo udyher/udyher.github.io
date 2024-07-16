@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>מציאת מילים לתשבץ</h1>
-    <input type="text" id="patternInput" placeholder="הכנס תבנית (לדוגמא, א*ב*)">
+    <input type="text" id="patternInput" placeholder="הכנס תבנית (לדוגמא, א*ב* או א?ב? או א.ב.)">
     <button onclick="matchPattern()">מצא מילים</button>
     <pre id="output"></pre>
 
@@ -25,12 +25,16 @@
                 .then(response => response.text())
                 .then(text => {
                     const lines = text.split('\n');
-                    const regexPattern = new RegExp('^' + patternInput.replace(/\*/g, '.') + '$');
-
+                const regexPattern = new RegExp('^' + patternInput.replace(/[\*\?\.\*]/g, match => {
+                    if (match === '*') return '.';
+                    if (match === '?') return '.';
+                    if (match === '.') return '.';
+                }) + '$');
                     lines.forEach(line => {
-                        const word = line.trim();
-                        if (regexPattern.test(word)) {
-                            output.textContent += word + '\n';
+                    const originalWord = line.trim();
+                    const wordWithoutHyphens = originalWord.replace(/-/g, '');
+                    if (regexPattern.test(wordWithoutHyphens)) {
+                        output.textContent += originalWord + '\n';
                         }
                     });
                 })
